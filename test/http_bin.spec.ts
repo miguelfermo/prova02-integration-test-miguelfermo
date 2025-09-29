@@ -2,6 +2,7 @@ import pactum from 'pactum';
 import { StatusCodes } from 'http-status-codes';
 import { SimpleReporter } from '../simple-reporter';
 import data from '../data/data.json';
+import { requestWithRetry } from './utils/requestWithRetry';
 
 describe('Echo validation', () => {
   const p = pactum;
@@ -63,10 +64,7 @@ describe('Echo validation', () => {
 
   describe('Verifying status code from endpoints', () => {
     it('Should be a bad request', async () => {
-      await p
-        .spec()
-        .get(`${baseUrl}/status/400`)
-        .expectStatus(StatusCodes.BAD_REQUEST);
+      await requestWithRetry(() => p.spec().get(`${baseUrl}/status/400`).expectStatus(StatusCodes.BAD_REQUEST).toss());
     });
 
     it('Should be a not found', async () => {

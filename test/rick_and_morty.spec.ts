@@ -1,6 +1,7 @@
 import pactum from 'pactum';
 import { StatusCodes } from 'http-status-codes';
 import { SimpleReporter } from '../simple-reporter';
+import { requestWithRetry } from './utils/requestWithRetry';
 
 describe('Rick and Morty API', () => {
   const p = pactum;
@@ -24,11 +25,14 @@ describe('Rick and Morty API', () => {
     });
 
     it('GET xxx', async () => {
-      await p
-        .spec()
-        .get(`${baseUrl}/character/xxx`)
-        .expectStatus(StatusCodes.INTERNAL_SERVER_ERROR)
-        .expectBodyContains('Hey! you must provide an id');
+      await requestWithRetry(() =>
+        p
+          .spec()
+          .get(`${baseUrl}/character/xxx`)
+          .expectStatus(StatusCodes.INTERNAL_SERVER_ERROR)
+          .expectBodyContains('Hey! you must provide an id')
+          .toss()
+      );
     });
   });
 });

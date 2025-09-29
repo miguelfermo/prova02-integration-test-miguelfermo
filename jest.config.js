@@ -4,6 +4,7 @@ module.exports = {
   testMatch: ['**/test/**/*.[jt]s?(x)'],
   verbose: true,
   testTimeout: 30000,
+  setupFilesAfterEnv: ['<rootDir>/test/setup.ts'],
   reporters: [
     'default',
     [
