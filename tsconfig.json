@@ -1,0 +1,14 @@
+{
+  "exclude": ["./node_modules"],
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "outDir": "./dist",
+    "strict": false,
+    "resolveJsonModule": true,
+    "types": ["node", "@types/jest"],
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  }
+}
