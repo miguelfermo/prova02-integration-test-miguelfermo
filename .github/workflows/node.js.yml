@@ -20,7 +20,7 @@ jobs:
         node-version: 22
         cache: 'npm'
     - run: npm install      
-    - run: npm run coverage
+    - run: npm test
 
   sonarcloud:
     name: Run SonarCloud
